@@ -1,0 +1,106 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stablyai/orca/main/docs/schemas/plugins/orca-plugin.v2.schema.json",
+  "manifestVersion": 2,
+  "execution": "trusted-worker",
+  "id": "companion-chat",
+  "name": "Companion Chat",
+  "version": "0.2.0",
+  "description": "A chat companion for Orca. Talk to the coding CLI you choose (Claude Code, OpenCode, Kimi Code, Codex, Gemini CLI, Copilot CLI or your own) and let it start agents, create workspaces, open terminals and create files, each change only after you allow it.",
+  "license": "MIT",
+  "icon": "assets/icon.png",
+  "engines": {
+    "orca": ">=1.4.260"
+  },
+  "pluginApi": 1,
+  "main": "src/worker.ts",
+  "contributes": {
+    "panels": [
+      {
+        "id": "companion-chat",
+        "title": "Companion Chat",
+        "icon": "agent",
+        "entry": "src/panel.ts",
+        "ui": "html"
+      }
+    ],
+    "commands": [
+      {
+        "id": "companion.open",
+        "title": "Companion Chat: Open (toggle right sidebar)",
+        "action": "sidebar.right.toggle"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "companion.open",
+        "key": "Mod+Shift+L"
+      }
+    ],
+    "statusBarItems": [
+      {
+        "id": "companion-status",
+        "icon": "agent",
+        "text": "Companion",
+        "tone": "neutral",
+        "tooltip": "Companion Chat: toggle the right sidebar (Ctrl/Cmd+Shift+L)",
+        "command": "companion.open"
+      }
+    ],
+    "settings": [
+      {
+        "key": "cli",
+        "title": "Agent CLI",
+        "description": "The coding CLI the companion talks to. The panel asks on first start and its settings (gear) change it.",
+        "type": "string",
+        "default": "",
+        "enum": ["", "claude", "opencode", "kimi", "codex", "gemini", "copilot", "custom"],
+        "enumLabels": ["Not chosen yet", "Claude Code", "OpenCode", "Kimi Code", "Codex", "Gemini CLI", "GitHub Copilot CLI", "Custom command"]
+      },
+      {
+        "key": "customCommand",
+        "title": "Custom CLI: command",
+        "description": "Only for \"Custom command\": the executable, e.g. /usr/local/bin/mycli.",
+        "type": "string",
+        "default": "",
+        "maxLength": 1024
+      },
+      {
+        "key": "customArgs",
+        "title": "Custom CLI: arguments",
+        "description": "Only for \"Custom command\": arguments, with {prompt} where the message goes and optionally {model}. Quote with \"…\".",
+        "type": "string",
+        "default": "{prompt}",
+        "maxLength": 2000
+      },
+      {
+        "key": "extraArgs",
+        "title": "Extra arguments",
+        "description": "Added to every run of the selected CLI, e.g. --permission-mode acceptEdits for Claude Code.",
+        "type": "string",
+        "default": "",
+        "maxLength": 2000
+      },
+      {
+        "key": "timeoutMinutes",
+        "title": "Time limit per answer (minutes)",
+        "description": "The CLI is stopped when one answer takes longer than this.",
+        "type": "integer",
+        "default": 10,
+        "minimum": 1,
+        "maximum": 120
+      }
+    ]
+  },
+  "capabilities": [
+    { "kind": "workspace:read" },
+    { "kind": "workspace:write" },
+    { "kind": "workspace:create" },
+    { "kind": "agent:read" },
+    { "kind": "agent:launch" },
+    { "kind": "terminal:send" },
+    { "kind": "terminal:read" },
+    { "kind": "settings:own" },
+    { "kind": "storage:own" },
+    { "kind": "notifications:show" }
+  ]
+}

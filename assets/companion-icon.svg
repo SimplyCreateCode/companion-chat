@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Plugin icon: the companion mark (orca fin over a wave) in white on a near-black rounded square. -->
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#111111"/>
+  <g transform="translate(32 30) scale(6)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.5 21C11.5 14 14 8.5 18.5 3.5C17 9 17.2 15.5 22 21Z" fill="#ffffff"/>
+    <path d="M3 25.5c2.2-2.4 4.4-2.4 6.6 0s4.4 2.4 6.6 0 4.4-2.4 6.6 0 4.4 2.4 6.2 0"/>
+  </g>
+</svg>
